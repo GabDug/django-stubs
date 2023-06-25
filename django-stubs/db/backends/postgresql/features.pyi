@@ -2,6 +2,7 @@ from typing import Any
 
 from django.db.backends.base.features import BaseDatabaseFeatures
 from django.db.backends.postgresql.base import DatabaseWrapper
+from django.utils.functional import cached_property
 
 class DatabaseFeatures(BaseDatabaseFeatures):
     connection: DatabaseWrapper
@@ -38,19 +39,10 @@ class DatabaseFeatures(BaseDatabaseFeatures):
     supports_over_clause: bool
     only_supports_unbounded_with_preceding_and_following: bool
     supports_aggregate_filter_clause: bool
-    supported_explain_formats: Any
     validates_explain_options: bool
     supports_deferrable_unique_constraints: bool
     has_json_operators: bool
     json_key_contains_list_matching_requires_list: bool
-    @property
-    def is_postgresql_10(self) -> bool: ...
-    @property
-    def is_postgresql_11(self) -> bool: ...
-    @property
-    def is_postgresql_12(self) -> bool: ...
-    @property
-    def is_postgresql_13(self) -> bool: ...
     has_brin_autosummarize: bool
     has_websearch_to_tsquery: bool
     supports_table_partitions: bool
@@ -58,3 +50,16 @@ class DatabaseFeatures(BaseDatabaseFeatures):
     supports_covering_gist_indexes: bool
     supports_non_deterministic_collations: bool
     supports_alternate_collation_providers: bool
+
+    # postgresql specifics
+
+    uses_server_side_binding: cached_property[bool]
+    is_postgresql_10: cached_property[bool]
+    is_postgresql_11: cached_property[bool]
+    is_postgresql_12: cached_property[bool]
+    is_postgresql_13: cached_property[bool]
+    is_postgresql_14: cached_property[bool]
+    @property
+    def supports_covering_spgist_indexes(self) -> bool: ...
+    @property
+    def has_bit_xor(self) -> bool: ...

@@ -4,10 +4,11 @@ from logging import Logger
 from types import TracebackType
 from typing import Any
 
-from _typeshed import Self
+from _typeshed import Self, Unused
 from django.db.backends.base.base import BaseDatabaseWrapper
 from django.db.backends.ddl_references import Statement
 from django.db.models.base import Model
+from django.db.models.constraints import BaseConstraint
 from django.db.models.fields import Field
 from django.db.models.indexes import Index
 
@@ -47,6 +48,15 @@ class BaseDatabaseSchemaEditor(AbstractContextManager[Any]):
     collect_sql: bool
     collected_sql: Any
     atomic_migration: Any
+    sql_alter_table_comment: str
+    sql_alter_column_comment: str | None
+    sql_alter_column_no_default_null: str
+    sql_rename_index: str
+    sql_unique_constraint: str
+    sql_delete_constraint: str
+    sql_create_unique_index: str
+    sql_constraint: str
+    sql_check_constraint: str
     def __init__(self, connection: BaseDatabaseWrapper, collect_sql: bool = ..., atomic: bool = ...) -> None: ...
     deferred_sql: Any
     atomic: Any
@@ -89,3 +99,10 @@ class BaseDatabaseSchemaEditor(AbstractContextManager[Any]):
     def remove_field(self, model: Any, field: Any) -> None: ...
     def alter_field(self, model: type[Model], old_field: Field, new_field: Field, strict: bool = ...) -> None: ...
     def remove_procedure(self, procedure_name: Any, param_types: Any = ...) -> None: ...
+    def add_constraint(self, model: type[Model], constraint: BaseConstraint) -> None: ...
+    def alter_db_table_comment(
+        self, model: type[Model], old_db_table_comment: Unused, new_db_table_comment: str
+    ) -> None: ...
+    def remove_constraint(self, model: type[Model], constraint: BaseConstraint) -> None: ...
+    def rename_index(self, model: type[Model], old_index: Index, new_index: Index) -> None: ...
+    def skip_default_on_alter(self, field: Field | Unused) -> bool: ...

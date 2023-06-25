@@ -1,5 +1,3 @@
-from typing import Any
-
 from django.contrib.gis.db.backends.base.features import BaseSpatialFeatures
 from django.db.backends.mysql.features import DatabaseFeatures as MySQLDatabaseFeatures
 
@@ -16,5 +14,3 @@ class DatabaseFeatures(BaseSpatialFeatures, MySQLDatabaseFeatures):
     def empty_intersection_returns_none(self) -> bool: ...
     @property
     def supports_geometry_field_unique_index(self) -> bool: ...  # type: ignore
-    @property
-    def django_test_skips(self) -> dict[str, Any]: ...  # type: ignore

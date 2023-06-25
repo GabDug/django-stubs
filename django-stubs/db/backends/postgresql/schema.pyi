@@ -16,6 +16,9 @@ class DatabaseSchemaEditor(BaseDatabaseSchemaEditor):
     sql_create_column_inline_fk: str
     sql_delete_fk: str
     sql_delete_procedure: str
+    sql_add_identity: str
+    sql_drop_indentity: str
+    sql_alter_sequence_type: str
     def quote_value(self, value: Any) -> str: ...
     def add_index(self, model: Any, index: Any, concurrently: bool = ...) -> None: ...
     def remove_index(self, model: Any, index: Any, concurrently: bool = ...) -> None: ...

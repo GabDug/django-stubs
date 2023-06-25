@@ -1,6 +1,7 @@
 from collections.abc import Callable, Generator, Iterator, MutableMapping
 from contextlib import contextmanager
 from datetime import tzinfo
+from logging import Logger
 from typing import Any
 
 from _typeshed import Self
@@ -12,10 +13,18 @@ from django.db.backends.base.operations import BaseDatabaseOperations
 from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 from django.db.backends.base.validation import BaseDatabaseValidation
 from django.db.backends.utils import CursorDebugWrapper, CursorWrapper
+from django.utils.functional import cached_property
+from pytz import _UTCclass
+from pytz.tzinfo import BaseTzInfo
 from typing_extensions import TypeAlias
+from zoneinfo import ZoneInfo
 
 NO_DB_ALIAS: str
 RAN_DB_VERSION_CHECK: set[str]
+
+logger: Logger
+
+def timezone_constructor(tzname: str) -> ZoneInfo | BaseTzInfo | _UTCclass: ...
 
 _ExecuteWrapper: TypeAlias = Callable[
     [Callable[[str, Any, bool, dict[str, Any]], Any], str, Any, bool, dict[str, Any]], Any
@@ -61,9 +70,9 @@ class BaseDatabaseWrapper:
     operators: MutableMapping[str, str]
     def __init__(self, settings_dict: dict[str, Any], alias: str = ...) -> None: ...
     def ensure_timezone(self) -> bool: ...
-    @property
+    @cached_property
     def timezone(self) -> tzinfo | None: ...
-    @property
+    @cached_property[str]
     def timezone_name(self) -> str: ...
     @property
     def queries_logged(self) -> bool: ...
@@ -120,3 +129,4 @@ class BaseDatabaseWrapper:
     @contextmanager
     def execute_wrapper(self, wrapper: _ExecuteWrapper) -> Generator[None, None, None]: ...
     def copy(self: Self, alias: str | None = ...) -> Self: ...
+    def close_if_health_check_failed(self) -> None: ...
