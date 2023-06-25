@@ -1,5 +1,4 @@
 from datetime import timezone
-from functools import cached_property
 from io import IOBase
 from typing import Any
 
@@ -7,6 +6,7 @@ from _typeshed import Incomplete
 from django.db.backends.base.base import BaseDatabaseWrapper
 from django.db.backends.utils import CursorDebugWrapper as BaseCursorDebugWrapper
 from django.db.backends.utils import _ExecuteQuery
+from django.utils.functional import cached_property
 from typing_extensions import Never
 
 from .client import DatabaseClient
@@ -43,8 +43,7 @@ class DatabaseWrapper(BaseDatabaseWrapper):
 
     # PostgreSQL backend-specific attributes.
     _named_cursor_idx: int
-    @cached_property[int]
-    def pg_version(self) -> int: ...
+    pg_version: cached_property[int]
     def ensure_role(self) -> bool: ...
     def tzinfo_factory(self, offset: int) -> timezone: ...
 

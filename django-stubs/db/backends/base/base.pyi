@@ -14,7 +14,6 @@ from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 from django.db.backends.base.validation import BaseDatabaseValidation
 from django.db.backends.utils import CursorDebugWrapper, CursorWrapper
 from django.utils.functional import cached_property
-from pytz import _UTCclass
 from pytz.tzinfo import BaseTzInfo
 from typing_extensions import TypeAlias
 from zoneinfo import ZoneInfo
@@ -24,7 +23,7 @@ RAN_DB_VERSION_CHECK: set[str]
 
 logger: Logger
 
-def timezone_constructor(tzname: str) -> ZoneInfo | BaseTzInfo | _UTCclass: ...
+def timezone_constructor(tzname: str) -> ZoneInfo | BaseTzInfo: ...
 
 _ExecuteWrapper: TypeAlias = Callable[
     [Callable[[str, Any, bool, dict[str, Any]], Any], str, Any, bool, dict[str, Any]], Any
@@ -72,7 +71,7 @@ class BaseDatabaseWrapper:
     def ensure_timezone(self) -> bool: ...
     @cached_property
     def timezone(self) -> tzinfo | None: ...
-    @cached_property[str]
+    @cached_property
     def timezone_name(self) -> str: ...
     @property
     def queries_logged(self) -> bool: ...
