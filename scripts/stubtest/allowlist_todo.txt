@@ -1008,7 +1008,6 @@ django.core.validators.URLValidator.deconstruct
 django.core.validators.URLValidator.regex
 django.core.validators.URLValidator.unsafe_chars
 django.core.validators.slug_re
-django.db.backends.ddl_references.Expressions
 django.db.backends.mysql.base
 django.db.backends.mysql.introspection
 django.db.backends.oracle.base
@@ -1029,9 +1028,6 @@ django.db.backends.sqlite3.introspection.FieldInfo
 django.db.backends.sqlite3.schema.DatabaseSchemaEditor.alter_db_table
 django.db.backends.sqlite3.schema.DatabaseSchemaEditor.delete_model
 django.db.backends.sqlite3.schema.DatabaseSchemaEditor.sql_create_fk
-django.db.backends.utils.debug_transaction
-django.db.backends.utils.names_digest
-django.db.backends.utils.split_tzname_delta
 django.db.connection
 django.db.migrations.Migration.suggest_name
 django.db.migrations.autodetector.MigrationAutodetector.create_altered_constraints

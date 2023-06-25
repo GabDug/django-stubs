@@ -1,6 +1,9 @@
 from collections.abc import Sequence
 from typing import Any, Protocol
 
+from django.db.models.expressions import BaseExpression
+from django.db.models.sql.compiler import SQLCompiler
+
 class _QuoteCallable(Protocol):
     """Get rid of `cannot assign to method`"""
 
@@ -81,3 +84,6 @@ class Statement(Reference):
     def references_column(self, table: str, column: str) -> bool: ...
     def rename_table_references(self, old_table: str, new_table: str) -> None: ...
     def rename_column_references(self, table: str, old_column: str, new_column: str) -> None: ...
+
+class Expressions(TableColumns):
+    def __init__(self, table: str, expressions: BaseExpression, compiler: SQLCompiler, quote_value: str) -> None: ...

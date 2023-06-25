@@ -89,3 +89,6 @@ django.db.backends.postgresql.base.DatabaseWrapper.ops
 
 # pscyopg3 only
 django.db.backends.postgresql.base.TIMESTAMPTZ_OID
+
+# Lazy regexes
+django.core.validators.slug_unicode_re
