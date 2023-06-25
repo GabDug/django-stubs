@@ -85,6 +85,7 @@ django.db.backends.base.base.BaseDatabaseWrapper.introspection_class
 django.db.backends.base.base.BaseDatabaseWrapper.ops
 django.db.backends.base.base.BaseDatabaseWrapper.ops_class
 django.db.backends.postgresql.base.DatabaseWrapper.ops
+django.db.backends.sqlite3.base.DatabaseWrapper.ops
 
 
 # pscyopg3 only

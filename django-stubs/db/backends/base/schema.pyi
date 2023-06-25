@@ -34,7 +34,7 @@ class BaseDatabaseSchemaEditor(AbstractContextManager[Any]):
     sql_create_unique: str
     sql_delete_unique: str
 
-    sql_create_fk: str
+    sql_create_fk: str | None
     sql_create_inline_fk: str | None
     sql_create_column_inline_fk: str | None
     sql_delete_fk: str
