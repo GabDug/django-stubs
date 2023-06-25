@@ -1,12 +1,13 @@
 from datetime import timezone
 from functools import cached_property
 from io import IOBase
-from typing import Any, Never
+from typing import Any
 
 from _typeshed import Incomplete
 from django.db.backends.base.base import BaseDatabaseWrapper
 from django.db.backends.utils import CursorDebugWrapper as BaseCursorDebugWrapper
 from django.db.backends.utils import _ExecuteQuery
+from typing_extensions import Never
 
 from .client import DatabaseClient
 from .creation import DatabaseCreation
