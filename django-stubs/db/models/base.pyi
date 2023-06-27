@@ -1,13 +1,13 @@
 from collections.abc import Collection, Iterable, Sequence
 from typing import Any, Final, TypeVar
 
-from _typeshed import Self
 from django.core.checks.messages import CheckMessage
 from django.core.exceptions import MultipleObjectsReturned as BaseMultipleObjectsReturned
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db.models import BaseConstraint, Field
 from django.db.models.manager import BaseManager
 from django.db.models.options import Options
+from typing_extensions import Self
 
 _Self = TypeVar("_Self", bound=Model)
 
@@ -19,6 +19,7 @@ class ModelState:
     fields_cache: ModelStateFieldsCacheDescriptor
 
 class ModelBase(type):
+    def __new__(cls, name: str, bases: tuple[type, ...], attrs: dict[str, Any]) -> type: ...
     @property
     def objects(cls: type[_Self]) -> BaseManager[_Self]: ...  # type: ignore[misc]
     @property
@@ -38,7 +39,7 @@ class Model(metaclass=ModelBase):
     @classmethod
     def add_to_class(cls, name: str, value: Any) -> Any: ...
     @classmethod
-    def from_db(cls: type[Self], db: str | None, field_names: Collection[str], values: Collection[Any]) -> Self: ...
+    def from_db(cls, db: str | None, field_names: Collection[str], values: Collection[Any]) -> Self: ...
     def delete(self, using: Any = ..., keep_parents: bool = ...) -> tuple[int, dict[str, int]]: ...
     async def adelete(self, using: Any = ..., keep_parents: bool = ...) -> tuple[int, dict[str, int]]: ...
     def full_clean(

@@ -11,6 +11,7 @@ from django.db.models.lookups import Lookup, Transform
 from django.db.models.query import QuerySet
 from django.db.models.sql.compiler import SQLCompiler, _AsSqlType
 from django.db.models.sql.query import Query
+from django.utils.deconstruct import _Deconstructible
 from typing_extensions import TypeAlias
 
 class SQLiteNumericMixin:
@@ -108,9 +109,8 @@ class BaseExpression:
     def reverse_ordering(self) -> BaseExpression: ...
     def flatten(self) -> Iterator[BaseExpression]: ...
     def as_sql(self, compiler: SQLCompiler, connection: BaseDatabaseWrapper) -> _AsSqlType: ...
-    def deconstruct(self) -> Any: ...  # fake
 
-class Expression(BaseExpression, Combinable): ...
+class Expression(BaseExpression, Combinable, _Deconstructible): ...
 
 class CombinedExpression(SQLiteNumericMixin, Expression):
     connector: str
@@ -124,7 +124,7 @@ class DurationExpression(CombinedExpression):
 class TemporalSubtraction(CombinedExpression):
     def __init__(self, lhs: Combinable, rhs: Combinable) -> None: ...
 
-class F(Combinable):
+class F(Combinable, _Deconstructible):
     name: str
     def __init__(self, name: str) -> None: ...
     def resolve_expression(

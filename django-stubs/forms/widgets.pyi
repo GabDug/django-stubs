@@ -31,7 +31,13 @@ class Media:
     def merge(*lists: Iterable[Any]) -> list[Any]: ...
     def __add__(self, other: Media) -> Media: ...
 
-class MediaDefiningClass(type): ...
+class MediaDefiningClass(type):
+    def __new__(
+        mcs,
+        name: str,
+        bases: tuple[type, ...],
+        attrs: dict[str, Any],
+    ) -> type: ...
 
 class Widget(metaclass=MediaDefiningClass):
     needs_multipart_form: bool

@@ -8,6 +8,7 @@ from django.contrib.gis.geos.coordseq import GEOSCoordSeq
 from django.contrib.gis.geos.mutable_list import ListMixin
 from django.contrib.gis.geos.point import Point
 from django.contrib.gis.geos.prepared import PreparedGeometry
+from django.utils.deconstruct import _Deconstructible
 
 class GEOSGeometryBase(GEOSBase):
     ptr_type: Any
@@ -141,5 +142,5 @@ class LinearGeometryMixin:
     @property
     def closed(self) -> bool: ...
 
-class GEOSGeometry(GEOSGeometryBase, ListMixin):
+class GEOSGeometry(GEOSGeometryBase, ListMixin, _Deconstructible):
     def __init__(self, geo_input: Any, srid: int | None = ...) -> None: ...

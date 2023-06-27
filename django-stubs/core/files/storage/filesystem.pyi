@@ -1,9 +1,10 @@
 from django.utils._os import _PathCompatible
+from django.utils.deconstruct import _Deconstructible
 
 from .base import Storage
 from .mixins import StorageSettingsMixin
 
-class FileSystemStorage(Storage, StorageSettingsMixin):
+class FileSystemStorage(Storage, StorageSettingsMixin, _Deconstructible):
     OS_OPEN_FLAGS: int
 
     def __init__(

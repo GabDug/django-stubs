@@ -1,9 +1,10 @@
 from django.utils._os import _PathCompatible
+from django.utils.deconstruct import _Deconstructible
 
 from .base import Storage
 from .mixins import StorageSettingsMixin
 
-class InMemoryStorage(Storage, StorageSettingsMixin):
+class InMemoryStorage(Storage, StorageSettingsMixin, _Deconstructible):
     def __init__(
         self,
         location: _PathCompatible | None = ...,
